@@ -23,7 +23,7 @@ jobs:
             touch old
             touch updated
             git add .
-            git commit --am --no-edit
+            git commit --amend --no-edit
             git checkout -
           popd
 
@@ -50,14 +50,15 @@ jobs:
           nojekyll: true
       - name: test
         run: |
+          set -x
           git clone file://"$PWD"/test-remote/.git results --branch gh-pages
           pushd results
           ls -la
           [[ ! -f old ]]
           [[ -f new ]]
           [[ -f updated ]]
-          [[ "$(cat updated)" == updated ]]
+          [[ "$(cat updated)" == "$(echo update things)" ]]
           [[ -f CNAME ]]
-          [[ "$(cat CNAME)" == test.com ]]
+          [[ "$(cat CNAME)" == "$(echo test.com)" ]]
           [[ -f .nojekyll ]]
           popd
