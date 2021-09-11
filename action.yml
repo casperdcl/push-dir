@@ -10,9 +10,11 @@ inputs:
     required: true
   name:
     description: Git committer name
+    default: github-actions[bot]
     required: false
   email:
     description: Git committer email
+    default: 41898282+github-actions[bot]@users.noreply.github.com
     required: false
   dir:
     description: Directory to push

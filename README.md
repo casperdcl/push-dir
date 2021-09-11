@@ -34,39 +34,38 @@ Other features (supported by both) include:
 ## Inputs
 
 ```yaml
-inputs:
-  message:
-    description: Commit message
-    required: true
-  name:
-    description: Git committer name
-    default: TODO
-    required: false
-  email:
-    description: Git committer email
-    default: TODO
-    required: false
-  dir:
-    description: Directory to push
-    default: .
-    required: false
-  branch:
-    description: Branch to push to
-    required: false
-  force:
-    description: Set to "true" to force push
-    required: false
-  history:
-    description: |
-      Set to "false" to discard any prior commits on the `branch`
-      (Note: "false" will override `force` to "true")
-    default: true
-    required: false
-  cname:
-    description: Text to inject into a `CNAME` file
-    default: ''
-    required: false
-  nojekyll:
-    description: Set to "true" to add a `.nojekyll` file
-    required: false
+message:
+  description: Commit message
+  required: true
+branch:
+  description: Branch to push to
+  required: true
+name:
+  description: Git committer name
+  default: github-actions[bot]
+  required: false
+email:
+  description: Git committer email
+  default: 41898282+github-actions[bot]@users.noreply.github.com
+  required: false
+dir:
+  description: Directory to push
+  default: .
+  required: false
+force:
+  description: Set to "true" to force push
+  required: false
+history:
+  description: |
+    Set to "false" to discard any prior commits on the `branch`
+    (Note: "false" will override `force` to "true")
+  default: true
+  required: false
+cname:
+  description: Text to inject into a `CNAME` file
+  default: ''
+  required: false
+nojekyll:
+  description: Set to "true" to add a `.nojekyll` file
+  required: false
 ```
