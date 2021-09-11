@@ -1,4 +1,4 @@
-name: Push Directory
+name: Push Dir
 author: Casper da Costa-Luis
 description: Cleanly push directory contents to a branch
 inputs:
