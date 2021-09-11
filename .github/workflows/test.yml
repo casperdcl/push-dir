@@ -1,0 +1,63 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup
+        run: |
+          git config --global init.defaultBranch main
+          mkdir test-remote
+          pushd test-remote
+            git init
+            git config user.name Test
+            git config user.email "test@email.com"
+            touch nothing
+            git add .
+            git commit -m "initial commit"
+
+            git checkout -b gh-pages
+            rm *
+            touch old
+            touch updated
+            git add .
+            git commit --am --no-edit
+            git checkout -
+          popd
+
+          mkdir test-repo
+          pushd test-repo
+            git init
+            git remote add origin file://"$PWD"/../test-remote/.git
+
+            mkdir test-dir
+            pushd test-dir
+              echo update things > updated
+              touch new
+            popd
+          popd
+      - id: action
+        uses: ./
+        with:
+          message: msg to test
+          name: ${{ github.actor }}
+          email: ${{ github.actor }}@users.noreply.github.com
+          branch: gh-pages
+          dir: test-repo/test-dir
+          cname: test.com
+          nojekyll: true
+      - name: test
+        run: |
+          git clone file://"$PWD"/test-remote/.git results --branch gh-pages
+          pushd results
+          ls -la
+          [[ ! -f old ]]
+          [[ -f new ]]
+          [[ -f updated ]]
+          [[ "$(cat updated)" == updated ]]
+          [[ -f CNAME ]]
+          [[ "$(cat CNAME)" == test.com ]]
+          [[ -f .nojekyll ]]
+          popd
