@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Push Action started"
 abspath(){
     echo "$(cd "$1" && pwd)"
 }
