@@ -15,7 +15,6 @@ function is_in_remote() {
         exit 1
     else
         echo "branch exist on remote"
-        exit 0
     fi
 }
 
