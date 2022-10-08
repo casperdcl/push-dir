@@ -16,20 +16,24 @@ jobs:
           git config --global init.defaultBranch main
           mkdir test-remote
           pushd test-remote
-          git init
-          git config user.name Test
-          git config user.email "test@email.com"
-          touch nothing
-          git add .
-          git commit -m "initial commit"
+            git init
+            git config user.name Test
+            git config user.email "test@email.com"
+            touch nothing
+            git add .
+            git commit -m "initial commit"
+
+          popd
 
           mkdir test-repo
           pushd test-repo
+          ls
             git init
             git remote add origin file://"$PWD"/../test-remote/.git
 
             mkdir test-dir
             pushd test-dir
+            ls
               echo update things > updated
               touch new
             popd
