@@ -4,6 +4,12 @@ abspath(){
     echo "$(cd "$1" && pwd)"
 }
 
+# check if branch exist on remote
+branch_exist(){
+    git ls-remote --heads origin $INPUT_BRANCH > /dev/null 2>&1
+}
+
+
 DOT_GIT_DIR="$(git -C "$INPUT_DIR" rev-parse --git-dir)"
 if [[ ! -f "$DOT_GIT_DIR"/config && -d "$DOT_GIT_DIR"/.git ]]; then
     # incorrectly configured GIT_DIR
