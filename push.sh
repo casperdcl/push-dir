@@ -6,8 +6,11 @@ abspath(){
 
 # check if branch exist on remote
 branch_exist(){
+    echo "Checking if branch ($INPUT_BRANCH) exist on remote"
     git ls-remote --heads origin $INPUT_BRANCH > /dev/null 2>&1
 }
+# call branch_exist
+branch_exist
 
 
 DOT_GIT_DIR="$(git -C "$INPUT_DIR" rev-parse --git-dir)"
