@@ -4,23 +4,6 @@ abspath(){
     echo "$(cd "$1" && pwd)"
 }
 
-# check if branch exist on remote
-function is_in_remote() {
-    echo "Checking if branch ($INPUT_BRANCH) exist on remote"
-    _check_branch=$(git ls-remote --heads origin ${INPUT_BRANCH})
-    echo "existed_in_remote: $_check_branch"
-
-    if [[ -z "$_check_branch" ]]; then
-        echo "branch do not exist on remote"
-        exit 1
-    else
-        echo "branch exist on remote"
-    fi
-}
-
-is_in_remote
-
-
 DOT_GIT_DIR="$(git -C "$INPUT_DIR" rev-parse --git-dir)"
 if [[ ! -f "$DOT_GIT_DIR"/config && -d "$DOT_GIT_DIR"/.git ]]; then
     # incorrectly configured GIT_DIR
