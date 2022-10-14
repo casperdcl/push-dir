@@ -9,7 +9,7 @@ Cleanly push directory contents to a branch. Particularly useful for `gh-pages` 
 
 ```yaml
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: build_site_command --output-dir static_site
       - uses: casperdcl/push-dir@v1
         with:
