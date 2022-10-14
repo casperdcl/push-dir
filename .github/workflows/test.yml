@@ -8,9 +8,12 @@ jobs:
   test:
     if: github.event_name != 'pull_request' || !contains('OWNER,MEMBER,COLLABORATOR', github.event.pull_request.author_association)
     runs-on: ubuntu-latest
-    name: Test
+    name: Test-${{ matrix.remote-branch }}
+    strategy:
+      matrix:
+        remote-branch: [0, 1]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: setup
       run: |
         git config --global init.defaultBranch main
@@ -23,13 +26,15 @@ jobs:
           git add .
           git commit -m "initial commit"
 
-          git checkout -b gh-pages
-          rm *
-          touch old
-          touch updated
-          git add .
-          git commit --amend --no-edit
-          git checkout -
+          if test ${{ matrix.remote-branch }} -eq 1; then
+            git checkout -b gh-pages
+            rm *
+            touch old
+            touch updated
+            git add .
+            git commit --amend --no-edit
+            git checkout -
+          fi
         popd
 
         mkdir test-repo

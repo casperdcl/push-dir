@@ -69,8 +69,8 @@ runs:
       if [[ "$INPUT_HISTORY" == true ]]; then
         git -C "$DOT_GIT_DIR" fetch --depth=1 origin "$INPUT_BRANCH":"$INPUT_BRANCH" \
         && git fetch --depth=1 local "$INPUT_BRANCH":"$INPUT_BRANCH" \
-        && git checkout "$INPUT_BRANCH" || :
-        git ls-files -z | xargs -0 git rm
+        && git checkout "$INPUT_BRANCH" \
+        && git ls-files -z | xargs -0 git rm || :
       fi
       git branch -M "$INPUT_BRANCH"
 
